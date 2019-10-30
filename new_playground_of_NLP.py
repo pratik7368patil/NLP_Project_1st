@@ -28,3 +28,4 @@ dates_with_number_in_file = re.findall(r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}', text10)
 print(dates_with_number_in_file)
 dates_with_spell_in_file = re.findall(r'(?:\d{1,2} )?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (?:\d{1,2}, )?\d{4}', text10)
 print(dates_with_spell_in_file)
+
