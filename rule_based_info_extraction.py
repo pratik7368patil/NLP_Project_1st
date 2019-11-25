@@ -21,8 +21,8 @@ text = "GDP in developing countries such as Vietnam will continue growing at a h
 doc = nlp(text)
 
 # print token, dependency, POS tag 
-#for tok in doc: 
- # print(tok.text, "-->",tok.dep_,"-->", tok.pos_)
+for tok in doc: 
+  print(tok.text, "-->",tok.dep_,"-->", tok.pos_)
 
 #define the pattern 
 pattern = [{'POS':'NOUN'}, 

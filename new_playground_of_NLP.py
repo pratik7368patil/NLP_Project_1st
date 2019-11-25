@@ -20,6 +20,7 @@ print(text13)
 tweet = "@nltk Text analysis is awesome! #regex #pandas #python"
 re_exp = tweet.split(' ')
 print([w for w in re_exp if w.startswith('#')])
+print([w for w in re_exp if w.startswith('@')])
 
 # read file and fetch all dates from it using regular expression.
 import re

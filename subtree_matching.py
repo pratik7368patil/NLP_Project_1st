@@ -19,8 +19,8 @@ text = "Tableau was recently acquired by Salesforce."
 
 doc = nlp(text) 
 # print dependancy and pos tagging.
-#for tok in doc: 
- # print(tok.text,"-->",tok.dep_,"-->",tok.pos_)
+for tok in doc: 
+ print(tok.text,"-->",tok.dep_,"-->",tok.pos_)
 
 # subtree matcher for 
 def subtree_matcher(doc):

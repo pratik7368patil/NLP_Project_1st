@@ -7,9 +7,8 @@ import os
 print(STOPS_LIST[:5])
 swadesh = Swadesh('hi')
 print(swadesh.words()[:10])
-
-tokenizer = TokenizeSentence('hindi')
 hindi_text = 'सब छात्रों के लिए हिंदी व्याकरण से जुड़ी बहुत महत्वपूर्ण पुस्तक की तैयारी कर रहे है.'
-hindi_text_tokenize = tokenizer.tokenize(hindi_text)
+hindi_text_tokenize = nltk.word_tokenize(hindi_text)
 print(hindi_text_tokenize[0:10])
-print(hindi_text.split(' '))
+print(len(hindi_text_tokenize))
+
