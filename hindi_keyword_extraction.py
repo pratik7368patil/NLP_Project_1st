@@ -28,11 +28,12 @@ def get_keywords(pos):
                 continue
     return (continuous_chunk)
 
-text = "इराक के विदेश मंत्री ने अमरीका के उस प्रस्ताव का मजाक उड़ाया है , जिसमें अमरीका ने संयुक्त राष्ट्र के प्रतिबंधों को इराकी नागरिकों के लिए कम हानिकारक बनाने के लिए कहा है ।"
+# text = "इराक के विदेश मंत्री ने अमरीका के उस प्रस्ताव का मजाक उड़ाया है , जिसमें अमरीका ने संयुक्त राष्ट्र के प्रतिबंधों को इराकी नागरिकों के लिए कम हानिकारक बनाने के लिए कहा है ।"
+text = "भारत के प्रधानमंत्री नरेंद्र मोदी हैं"
 # ps_tg = nltk.pos_tag(nltk.word_tokenize(text))
 # print(ps_tg)
 model = hindi_model()
 new_tagged = (model.tag(nltk.word_tokenize(text)))
 print(new_tagged)
-print("--KEYWORDS--")
+print("--INFORMATION--")
 print(get_keywords(new_tagged))
