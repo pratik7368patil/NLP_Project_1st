@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h2>Homepage</h2>
+	<hr>
+    <p>Welcome to Information Extraction</p>
+    <section>
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="{% url 'output' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for='info'><b>Information :</b></label>
+                        <textarea rows="10" cols="auto" class="form-control" name="text" id="text" placeholder="Paste Information here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Extract">
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <h4>Extracted Information :</h4>
+                <div class="jumbotron">
+                    {% for res in text %}
+                        {{res|linebreaks}}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
