@@ -12,7 +12,8 @@ def index(request):
 
 def output(request):
     text = request.POST.get('text')
-    
+    if text.strip() == '':
+        return render(request, 'error.html')
     ######################### functions for information extraction in hindi ##########
     def hindi_model():
         train_data = indian.tagged_sents('hindi.pos')
