@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<h2>Homepage</h2>
-	<hr>
-    <p>Welcome to Information Extraction</p>
     <section>
         <div class="row">
-            <div class="col">
+            <div class="col-md-8 col-sm-8">
                 <form method="POST" action="{% url 'output' %}">
                     {% csrf_token %}
                     <div class="form-group">
@@ -17,14 +14,50 @@
                         <input type="submit" class="btn btn-primary btn-lg" value="Extract">
                     </div>
                 </form>
-            </div>
-            <div class="col">
-                <h4>Extracted Information :</h4>
-                <div class="jumbotron">
-                    {% for res in text %}
-                        {{res|linebreaks}}
+                {% if urls|length > 0 %}
+                <h2> URLs extracted from the given corpus: </h2>
+                <table class="table table-bordered table-hover table-responsive">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Protocol</th>
+                      <th scope="col">Domain</th>
+                      <th scope="col">Path</th>
+                      <th scopr="col">URL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for url in urls %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      {% for item in url %}
+                       <td>{{item}}</td>
+                      {% endfor %}
+                      <td><a href="{{url.0}}://{{url.1}}{{url.2}}" target="_blank">Click here</a></td>
+                    </tr>
                     {% endfor %}
-                </div>
+                  </tbody>
+                </table>
+                {% endif %}
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <h4>Extracted Keywords:</h4>
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Keywords</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for res in text %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{res}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
             </div>
         </div>
     </section>
