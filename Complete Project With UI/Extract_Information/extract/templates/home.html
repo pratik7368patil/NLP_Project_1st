@@ -7,41 +7,101 @@
                 <form method="POST" action="{% url 'output' %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for='info'><b>Information :</b></label>
+                        <label for='text'><strong>Information :</strong></label>
                         <textarea rows="10" cols="auto" class="form-control" name="text" id="text" placeholder="Paste Information here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="link"><strong>Link :</strong></label>
+                        <input type="text" class="form-control" name="link" id="link" placeholder="Link of the article">
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-lg" value="Extract">
                     </div>
                 </form>
                 {% if urls|length > 0 %}
-                <h2> URLs extracted from the given corpus: </h2>
+                <h2 id="all_urls"> URLs extracted from the given Information: </h2>
                 <table class="table table-bordered table-hover table-responsive">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
+                      <th scopr="col">URL</th>
                       <th scope="col">Protocol</th>
                       <th scope="col">Domain</th>
                       <th scope="col">Path</th>
-                      <th scopr="col">URL</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for url in urls %}
                     <tr>
                       <th scope="row">{{forloop.counter}}</th>
+                      <td><a href="{{url.0}}://{{url.1}}{{url.2}}" target="_blank">Click here</a></td>
                       {% for item in url %}
                        <td>{{item}}</td>
                       {% endfor %}
-                      <td><a href="{{url.0}}://{{url.1}}{{url.2}}" target="_blank">Click here</a></td>
                     </tr>
                     {% endfor %}
                   </tbody>
                 </table>
                 {% endif %}
+
+                {% if dates|length > 0 %}
+                    <h2 id="all_dates">Extracted Dates from the given Information: </h2>
+                    <table class="table table-bordered table-hover table-responsive">
+                        <tbody>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                            {% for date in dates %}
+                            <tr>
+                                <th>{{ forloop.counter }}</th>
+                                <td>{{ date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
             </div>
             <div class="col-md-4 col-sm-4">
-                <h4>Extracted Keywords:</h4>
+                {% if text|length > 0 %} 
+                    <label><strong>Statistics:</strong></label>
+                    <div class="card mb-2">
+                      <div class="card-body">
+                        <p class="card-title"><strong>Total Keywords</strong></p>
+                        <div class="align-row-center">
+                            <span class="card-text count">{{ text|length }}</span>
+                            <a href="#all_keywords" id="view_keywords" class="btn btn-sm btn-primary">View All</a>
+                        </div>
+                      </div>
+                    </div>
+                {% endif %}
+                
+                {% if urls|length > 0 %} 
+                    <div class="card mb-2">
+                      <div class="card-body">
+                        <p class="card-title"><strong>Total Urls</strong></p>
+                        <div class="align-row-center">
+                            <span class="card-text count">{{ urls|length }}</span>
+                            <a href="#all_urls" id="view_urls" class="btn btn-sm btn-primary">View All</a>
+                        </div>
+                      </div>
+                    </div>
+                {% endif %}
+
+                {% if dates|length > 0 %} 
+                    <div class="card mb-2">
+                      <div class="card-body">
+                        <p class="card-title"><strong>Total Dates</strong></p>
+                        <div class="align-row-center">
+                            <span class="card-text count">{{ dates|length }}</span>
+                            <a href="#all_dates" id="view_dates" class="btn btn-sm btn-primary">View All</a>
+                        </div>
+                      </div>
+                    </div>
+                {% endif %}
+
+                {% if text|length > 0 %}
+                <h4 id="all_keywords">Extracted Keywords:</h4>
                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
@@ -58,8 +118,34 @@
                     {% endfor %}
                   </tbody>
                 </table>
+                {% endif %}
             </div>
         </div>
     </section>
+    <script>
+        // highlight click
+
+        function highLightClick(id) {
+            let ele = document.querySelector(`#${id}`);
+            ele.classList.add('highlight');
+            setTimeout(() => {
+                ele.classList.remove('highlight');
+            }, 4000);
+        }
+
+        let allIds = [
+        {btnId: 'view_keywords', targetId: 'all_keywords'}, 
+        {btnId: 'view_urls', targetId: 'all_urls'}, 
+        {btnId: 'view_dates', targetId: 'all_dates'}
+        ];
+
+        for(let i=0; i<allIds.length; i++) {
+            let btn = document.querySelector(`#${allIds[i].btnId}`);
+            btn.addEventListener('click', () => {
+                highLightClick(allIds[i].targetId);
+            })
+        }
+
+    </script>
 
 {% endblock %}

@@ -1,0 +1,33 @@
+.asteriskField {
+	display: none;
+}
+form .alert ul li {
+	list-style: none;
+}
+form .alert ul {
+	padding: 0;
+	marker:0;
+}
+.navbar {
+    box-shadow: 0 2rem 4rem rgba(22,28,45,.1)!important;
+}
+td {
+	color: #2b2b2b;
+}
+.card-title {
+	color:  gray;
+}
+.count {
+	font-size:  24px;
+	font-weight: bold;
+}
+.card .align-row-center {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.highlight {
+	background-color: yellow;
+	transition: all 0.3s ease-in-out;
+}
